@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# (C) Christof Fetzer, 2017
 
 set -x -e
 
