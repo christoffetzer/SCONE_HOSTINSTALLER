@@ -47,7 +47,7 @@ sudo service docker start
 
 # do not restart registry in case it is already running
 r=`sudo docker ps --filter "name=^/registry$" | wc -l`
-if [ !  $m "==" "2" ] ; then
+if [ !  $r "==" "2" ] ; then
     sudo docker run -d -p 5000:5000 --name registry registry:2
 fi
 echo "OK"
