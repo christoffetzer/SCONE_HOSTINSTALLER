@@ -4,14 +4,14 @@ This documentation describes how
 
 * to set up a host to run secure containers, i.e., containers in which processes run inside of SGX enclaves
 
-* to setup containers to run SCONE, i.e., containers to produce secure containers.
+* to run a local Docker registry.
 
 
-To setup Ubuntu MaaS hosts, we plan to provide preconfigured MaaS images - as soon as custom MaaS images are better supported.
+Our objective is to support hosts managed by Ubuntu MaaS. Hence, we plan to provide preconfigured MaaS images - as soon as custom MaaS images are supported (again).
 
 ## Installation
 
-Clone the script:
+To install all necessary software to run secure containers on a host, clone the script:
 
 ```bash
 git clone https://github.com/christoffetzer/SCONE_HOSTINSTALLER.git
@@ -22,7 +22,7 @@ ensure that you are permitted to execute sudo and execute the following command:
 ```bash
 cd SCONE_HOSTINSTALLER; ./install.sh
 ```
-The script show finish with 'OK' as output.
+The script should output 'OK' on success.
 
 
 ## Script Details
