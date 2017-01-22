@@ -45,7 +45,7 @@ apt-cache policy docker-engine
 sudo apt-get install -y docker-engine
 sudo service docker start
 
-docker run -d -p 5000:5000 --name registry registry:2
+sudo docker run -d -p 5000:5000 --name registry registry:2
 
 echo "OK"
 
