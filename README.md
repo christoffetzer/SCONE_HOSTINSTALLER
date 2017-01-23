@@ -27,13 +27,7 @@ The script should output 'OK' on success.
 
 ## Script Details
 
-We use bash scripts to install the host:
-
-```bash
-#!/bin/bash
-
-set -x -e
-```
+The installation script has no dependencies on SCONE itself. However, it depends on the underlying operating system and needs to adapted for production (i.e., one probably wants to use one private Docker repository per cluster and that is only available via TLS).
 
 ### Configuration Parameter
 This installation is for Ubuntu 16.04LTS. For other distributions, we need to adjust the docker repo by updating this link:
@@ -108,5 +102,7 @@ docker run -d -p 5000:5000 --name registry registry:2
 
 ## Future Work
 
-Objective: instead of installing this code everytime we install a new host, we could plan to provide custom MaaS images. However, that image builder for MaaS does not seem to work right now.
+* provide a local Docker registry with TLS access only.  
+
+* instead of installing this code everytime we install a new host, we could plan to provide custom MaaS images. However, that image builder for MaaS does not seem to work right now.
 
