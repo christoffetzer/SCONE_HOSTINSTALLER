@@ -17,6 +17,7 @@ if [ !  $m "==" "1" ] ; then
 
    cd linux-sgx-driver/
    make
+   make install
    sudo insmod isgx.ko 
 
    m=`lsmod | grep isgx | wc -l`
