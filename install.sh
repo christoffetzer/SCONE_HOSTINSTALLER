@@ -4,7 +4,9 @@
 
 set -x -e
 
-REPO="deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+REPO="deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -cs) main"
+
+echo $REPO
 
 sudo apt install -y make
 sudo apt install -y gcc
