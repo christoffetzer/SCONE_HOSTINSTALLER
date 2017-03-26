@@ -1,4 +1,4 @@
-# SCONE: Installation Guide
+# SCONE: Host Installation Guide
 
 This documentation describes how 
 
@@ -6,34 +6,74 @@ This documentation describes how
 
 * to run a local Docker registry.
 
-
-Our objective is to support hosts managed by Ubuntu MaaS. Hence, we plan to provide preconfigured MaaS images - as soon as custom MaaS images are supported (again).
+**Prerequisite**:  We assume that you have Ubuntu 16.04LTS (or later) installed. 
 
 ## Installation
+
+To run these scripts, you need some git credentials and sudo permissions. 
+
+The git credentials are typically given to you via ssh deployment key.
+You can generate a deployment key yourself:
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+
+Send these keys to christof.fetzer@gmail to gain access to the repositories.
+
+For more details on how to add this key to your ssh-agent, 
+please read [this page](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
+
+Ensure that you have the correct ssh identity when cloing the repository. If your deployment key
+is store in file *~/.ssh/SCONE_HOSTINSTALLER_rsa*, you can set the identity via
+command:
+
+```bash
+export GIT_SSH_COMMAND="ssh -i ~/.ssh/SCONE_HOSTINSTALLER_rsa"
+```
 
 To install all necessary software to run secure containers on a host, clone the script:
 
 ```bash
-git clone https://github.com/christoffetzer/SCONE_HOSTINSTALLER.git
+git clone git@github.com:christoffetzer/SCONE_HOSTINSTALLER.git
 ```
 
 ensure that you are permitted to execute sudo and execute the following command:
 
 ```bash
-cd SCONE_HOSTINSTALLER; ./install.sh
+cd SCONE_HOSTINSTALLER; sudo ./install.sh
 ```
 The script should output 'OK' on success.
+
+## Checking your Installation
+
+
+To test the installation, one can run a simpla hello-world container:
+
+```bash
+sudo docker run hello-world
+```
+
+### To starting a local docker repository
+
+To run a docker repository on this host, just execute this
+
+```bash
+sudo docker run -d -p 5000:5000 --name registry registry:2
+```
 
 
 ## Script Details
 
-The installation script has no dependencies on SCONE itself. However, it depends on the underlying operating system and needs to adapted for production (i.e., one probably wants to use one private Docker repository per cluster and that is only available via TLS).
+This is an advanced topic that only needs to be read by developers that want to adapt the installation process.
+
+The installation script has no dependencies on SCONE itself. It depends on the underlying operating system and needs to adapted for production (i.e., one probably wants to use one private Docker repository per cluster and that is only available via TLS).
 
 ### Configuration Parameter
-This installation is for Ubuntu 16.04LTS. For other distributions, we need to adjust the docker repo by updating this link:
+This installation is for Ubuntu. For other distributions, we need to adjust the docker repo by updating this link:
 
 ```bash
-REPO="deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+REPO="deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -cs) main"
 ```
 
 ### Installing the SGX driver:
@@ -85,24 +125,12 @@ sudo service docker start
 
 ```
 
-To test the installation, one can run a
-simpla hello-world container:
-
-```bash
-sudo docker run hello-world
-```
-
-### Starting a new local docker repository
-
-To run a docker repository on this host, just execute this
-
-```bash
-docker run -d -p 5000:5000 --name registry registry:2
-```
-
 ## Future Work
 
 * provide a local Docker registry with TLS access only.  
 
-* instead of installing this code everytime we install a new host, we could plan to provide custom MaaS images. However, that image builder for MaaS does not seem to work right now.
+* we plan to support hosts managed by Ubuntu MaaS: 
+we plan to provide preconfigured SCONE host images for MaaS - as soon as custom MaaS images are supported (again).
+
+Author: Christof Fetzer, March 2017
 
