@@ -46,11 +46,15 @@ sudo apt-get update
 apt-cache policy docker-engine
 
 sudo apt-get install -y docker-engine
-sudo service docker start
+
+# remove the need for sudo
+groupadd -f docker
+sudo gpasswd -a ${USER} docker
+sudo service docker restart
 
 # do not restart registry in case it is already running
 r=`sudo docker ps --filter "name=^/registry$" | wc -l`
-if [ !  $r "==" "2" ] ; then
+if [  $r "<" "1" ] ; then
     sudo docker run -d -p 5000:5000 --name registry registry:2
 fi
 echo "OK"
