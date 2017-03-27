@@ -22,7 +22,7 @@ errormsg="ERROR: unloading of module isgx has failed. You can either
    - force the removal of the isgx (sudo rmmod -f isgx) and retry."
 
 m=`lsmod | grep isgx | wc -l`
-if [  $m ">=" "1" ] ; then
+if [  $m ">" "0" ] ; then
     sudo rmmod isgx
     m=`lsmod | grep isgx | wc -l`
     if [ !  $m "==" "1" ] ; then
