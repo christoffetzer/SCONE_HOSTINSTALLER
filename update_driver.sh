@@ -17,16 +17,16 @@ cd linux-sgx-driver/
 make
 sudo make install
 
-error="ERROR: unloading of module isgx has failed. You can either 
+errormsg="ERROR: unloading of module isgx has failed. You can either 
    - reboot the machine (sudo reboot -now) or
    - force the removal of the isgx (sudo rmmod -f isgx) and retry."
 
 m=`lsmod | grep isgx | wc -l`
-if [ !  $m "==" "1" ] ; then
+if [  $m ">=" "1" ] ; then
     sudo rmmod isgx
     m=`lsmod | grep isgx | wc -l`
     if [ !  $m "==" "1" ] ; then
-        echo  $error >&2
+        echo  $errormsg >&2
         exit 1
     fi
 fi
