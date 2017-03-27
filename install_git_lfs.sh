@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e -x 
-# https://packagecloud.io/github/git-lfs/install
+# downloaded from  https://packagecloud.io/github/git-lfs/install
 
 unknown_os ()
 {
@@ -89,87 +89,92 @@ detect_os ()
 
 main ()
 {
-  detect_os
-  curl_check
-
-  # Need to first run apt-get update so that apt-transport-https can be
-  # installed
-  echo -n "Running apt-get update... "
-  apt-get update &> /dev/null
-  echo "done."
-
-  # Install the debian-archive-keyring package on debian systems so that
-  # apt-transport-https can be installed next
-  install_debian_keyring
-
-  echo -n "Installing apt-transport-https... "
-  apt-get install -y apt-transport-https &> /dev/null
-  echo "done."
-
-
-  gpg_key_url="https://packagecloud.io/github/git-lfs/gpgkey"
-  apt_config_url="https://packagecloud.io/install/repositories/github/git-lfs/config_file.list?os=${os}&dist=${dist}&source=script"
-
   apt_source_path="/etc/apt/sources.list.d/github_git-lfs.list"
 
-  echo -n "Installing $apt_source_path..."
+  if [ ! -f $apt_source_path]; then
+    detect_os
+    curl_check
 
-  # create an apt config file for this repository
-  curl -sSf "${apt_config_url}" > $apt_source_path
-  curl_exit_code=$?
-
-  if [ "$curl_exit_code" = "22" ]; then
-    echo
-    echo
-    echo -n "Unable to download repo config from: "
-    echo "${apt_config_url}"
-    echo
-    echo "This usually happens if your operating system is not supported by "
-    echo "packagecloud.io, or this script's OS detection failed."
-    echo
-    echo "You can override the OS detection by setting os= and dist= prior to running this script."
-    echo "You can find a list of supported OSes and distributions on our website: https://packagecloud.io/docs#os_distro_version"
-    echo
-    echo "For example, to force Ubuntu Trusty: os=ubuntu dist=trusty ./script.sh"
-    echo
-    echo "If you are running a supported OS, please email support@packagecloud.io and report this."
-    [ -e $apt_source_path ] && rm $apt_source_path
-    exit 1
-  elif [ "$curl_exit_code" = "35" ]; then
-    echo "curl is unable to connect to packagecloud.io over TLS when running: "
-    echo "    curl ${apt_config_url}"
-    echo "This is usually due to one of two things:"
-    echo
-    echo " 1.) Missing CA root certificates (make sure the ca-certificates package is installed)"
-    echo " 2.) An old version of libssl. Try upgrading libssl on your system to a more recent version"
-    echo
-    echo "Contact support@packagecloud.io with information about your system for help."
-    [ -e $apt_source_path ] && rm $apt_source_path
-    exit 1
-  elif [ "$curl_exit_code" -gt "0" ]; then
-    echo
-    echo "Unable to run: "
-    echo "    curl ${apt_config_url}"
-    echo
-    echo "Double check your curl installation and try again."
-    [ -e $apt_source_path ] && rm $apt_source_path
-    exit 1
-  else
+    # Need to first run apt-get update so that apt-transport-https can be
+    # installed
+    echo -n "Running apt-get update... "
+    apt-get update &> /dev/null
     echo "done."
+
+    # Install the debian-archive-keyring package on debian systems so that
+    # apt-transport-https can be installed next
+    install_debian_keyring
+
+    echo -n "Installing apt-transport-https... "
+    apt-get install -y apt-transport-https &> /dev/null
+    echo "done."
+
+
+    gpg_key_url="https://packagecloud.io/github/git-lfs/gpgkey"
+    apt_config_url="https://packagecloud.io/install/repositories/github/git-lfs/config_file.list?os=${os}&dist=${dist}&source=script"
+
+
+    echo -n "Installing $apt_source_path..."
+
+    # create an apt config file for this repository
+    curl -sSf "${apt_config_url}" > $apt_source_path
+    curl_exit_code=$?
+
+    if [ "$curl_exit_code" = "22" ]; then
+      echo
+      echo
+      echo -n "Unable to download repo config from: "
+      echo "${apt_config_url}"
+      echo
+      echo "This usually happens if your operating system is not supported by "
+      echo "packagecloud.io, or this script's OS detection failed."
+      echo
+      echo "You can override the OS detection by setting os= and dist= prior to running this script."
+      echo "You can find a list of supported OSes and distributions on our website: https://packagecloud.io/docs#os_distro_version"
+      echo
+      echo "For example, to force Ubuntu Trusty: os=ubuntu dist=trusty ./script.sh"
+      echo
+      echo "If you are running a supported OS, please email support@packagecloud.io and report this."
+      [ -e $apt_source_path ] && rm $apt_source_path
+      exit 1
+    elif [ "$curl_exit_code" = "35" ]; then
+      echo "curl is unable to connect to packagecloud.io over TLS when running: "
+      echo "    curl ${apt_config_url}"
+      echo "This is usually due to one of two things:"
+      echo
+      echo " 1.) Missing CA root certificates (make sure the ca-certificates package is installed)"
+      echo " 2.) An old version of libssl. Try upgrading libssl on your system to a more recent version"
+      echo
+      echo "Contact support@packagecloud.io with information about your system for help."
+      [ -e $apt_source_path ] && rm $apt_source_path
+      exit 1
+    elif [ "$curl_exit_code" -gt "0" ]; then
+      echo
+      echo "Unable to run: "
+      echo "    curl ${apt_config_url}"
+      echo
+      echo "Double check your curl installation and try again."
+      [ -e $apt_source_path ] && rm $apt_source_path
+      exit 1
+    else
+      echo "done."
+    fi
+
+    echo -n "Importing packagecloud gpg key... "
+    # import the gpg key
+    curl -L "${gpg_key_url}" 2> /dev/null | apt-key add - &>/dev/null
+    echo "done."
+
+    echo -n "Running apt-get update... "
+    # update apt on this system
+    apt-get update &> /dev/null
+    echo "done."
+
+    echo
+    echo "The repository is setup! You can now install packages."
+  else
+    echo "git-lfs seems to be already installed"
   fi
-
-  echo -n "Importing packagecloud gpg key... "
-  # import the gpg key
-  curl -L "${gpg_key_url}" 2> /dev/null | apt-key add - &>/dev/null
-  echo "done."
-
-  echo -n "Running apt-get update... "
-  # update apt on this system
-  apt-get update &> /dev/null
-  echo "done."
-
-  echo
-  echo "The repository is setup! You can now install packages."
 }
 
 main

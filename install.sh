@@ -57,5 +57,8 @@ r=`sudo docker ps --filter "name=^/registry$" | wc -l`
 if [  $r "<" "1" ] ; then
     sudo docker run -d -p 5000:5000 --name registry registry:2
 fi
+
+./install_git_lfs.sh
+
 echo "OK"
 
