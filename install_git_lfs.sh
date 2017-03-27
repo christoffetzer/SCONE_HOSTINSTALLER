@@ -179,5 +179,5 @@ main ()
 
 main
 
-apt-get install git-lfs
+sudo apt-get install git-lfs
 
