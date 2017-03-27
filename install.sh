@@ -1,12 +1,14 @@
 #!/bin/bash
 #
+# - install sgx driver - unless already installed
+# - install docker engine - unless already installed
+# - install git-lfs - unless already installed
+#
 # (C) Christof Fetzer, 2017
 
 set -x -e
 
 REPO="deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -cs) main"
-
-echo $REPO
 
 sudo apt install -y make
 sudo apt install -y gcc
