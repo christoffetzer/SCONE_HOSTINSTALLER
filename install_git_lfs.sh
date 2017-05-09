@@ -91,7 +91,7 @@ main ()
 {
   apt_source_path="/etc/apt/sources.list.d/github_git-lfs.list"
 
-  if [ ! -f $apt_source_path]; then
+  if [ ! -f $apt_source_path ]; then
     detect_os
     curl_check
 
