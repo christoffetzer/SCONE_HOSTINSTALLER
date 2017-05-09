@@ -2,35 +2,22 @@
 
 This documentation describes how 
 
-* to set up a host to run secure containers, i.e., containers in which processes run inside of SGX enclaves
+* to set up a host such that it can run SCONE secure containers, i.e., containers in which processes run inside of SGX enclaves,
 
-* to run a local Docker registry.
+* to run a local Docker registry, and
+
+The installation script
+
+* installs the Intel SGX drive (if it is not yet installed),
+
+* installs the docker engine (if it is not yet installed), and
+
+* installs git-lfs - which is required to store container images on github.
+
 
 **Prerequisite**:  We assume that you have Ubuntu 16.04LTS (or later) installed. 
 
 ## Installation
-
-To run these scripts, you need some git credentials and sudo permissions. 
-
-The git credentials are typically given to you via ssh deployment key.
-You can generate a deployment key yourself:
-
-```bash
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-```
-
-Send these keys to christof.fetzer@gmail to gain access to the repositories.
-
-For more details on how to add this key to your ssh-agent, 
-please read [this page](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/).
-
-Ensure that you have the correct ssh identity when cloing the repository. If your deployment key
-is store in file *~/.ssh/SCONE_HOSTINSTALLER_rsa*, you can set the identity via
-command:
-
-```bash
-export GIT_SSH_COMMAND="ssh -i ~/.ssh/SCONE_HOSTINSTALLER_rsa"
-```
 
 To install all necessary software to run secure containers on a host, clone the script:
 
@@ -127,10 +114,11 @@ sudo service docker start
 
 ## Future Work
 
+* show how to install a our patched Docker engine instead
+
 * provide a local Docker registry with TLS access only.  
 
 * we plan to support hosts managed by Ubuntu MaaS: 
 we plan to provide preconfigured SCONE host images for MaaS - as soon as custom MaaS images are supported (again).
 
-Author: Christof Fetzer, March 2017
-
+Author: Christof Fetzer, 2017
