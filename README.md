@@ -32,7 +32,7 @@ open http://127.0.0.1:8080
 To install all necessary software to run secure containers on a host, clone the script:
 
 ```bash
-git clone git@github.com:christoffetzer/SCONE_HOSTINSTALLER.git
+git clone https://github.com/christoffetzer/SCONE_HOSTINSTALLER.git
 ```
 
 ensure that you are permitted to execute sudo and execute the following command:
