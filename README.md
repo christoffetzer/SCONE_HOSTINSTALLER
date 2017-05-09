@@ -12,10 +12,20 @@ The installation script
 
 * installs the docker engine (if it is not yet installed), and
 
-* installs git-lfs - which is required to store container images on github.
+* installs git-lfs - which is required to store / retrieve large files on github.
 
 
 **Prerequisite**:  We assume that you have Ubuntu 16.04LTS (or later) installed. 
+
+## SCONE
+
+To read more about our SCONE secure container framework, please ensure that docker is installed and then execute the following:
+
+```bash
+docker pull sconecuratedimages/sconedocu
+docker run -d -p 8080:80  sconecuratedimages/sconedocu
+open http://127.0.0.1:8080
+```
 
 ## Installation
 
@@ -114,7 +124,7 @@ sudo service docker start
 
 ## Future Work
 
-* show how to install a our patched Docker engine instead
+* show how to install our patched Docker engine instead
 
 * provide a local Docker registry with TLS access only.  
 
