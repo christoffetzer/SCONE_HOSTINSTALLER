@@ -10,7 +10,7 @@ The installation script
 
 * installs the Intel SGX drive (if it is not yet installed),
 
-* installs the docker engine (if it is not yet installed), and
+* installs a patched docker engine that always maps device isgx into containers, and
 
 * installs git-lfs - which is required to store / retrieve large files on github.
 
@@ -123,8 +123,6 @@ sudo service docker start
 ```
 
 ## Future Work
-
-* show how to install our patched Docker engine instead
 
 * provide a local Docker registry with TLS access only.  
 

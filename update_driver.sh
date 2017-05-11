@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# - update sgx driver or install incase it is not yet installed
+# - update sgx driver or install in case it is not yet installed
 #
 # (C) Christof Fetzer, 2017
 
