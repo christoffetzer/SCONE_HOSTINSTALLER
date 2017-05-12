@@ -4,6 +4,8 @@
 #
 # (C) Christof Fetzer, 2017
 
+REPO="deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -cs) main"
+
 sudo apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
 
 sudo apt-get update

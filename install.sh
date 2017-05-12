@@ -8,7 +8,6 @@
 
 set -x -e
 
-REPO="deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -cs) main"
 
 sudo apt install -y make
 sudo apt install -y gcc
@@ -35,6 +34,7 @@ fi
 
 ./install_patched_docker.sh
 
-./install_git_lfs.sh
+## git_lfs is not needed anymore
+#./install_git_lfs.sh
 
 echo "OK"

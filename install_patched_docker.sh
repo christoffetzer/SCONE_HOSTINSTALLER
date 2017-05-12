@@ -5,7 +5,6 @@
 # (C) Christof Fetzer, 2017
 
 KEYNAME="96B9BADB"
-#REPO="deb https://sconecontainers.github.io/APT ubuntu-$(lsb_release -cs) main"
 REPO="deb https://sconecontainers.github.io/APT ./"
 
 sudo apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
