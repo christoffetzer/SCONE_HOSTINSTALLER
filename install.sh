@@ -101,7 +101,7 @@ if [[ $1 == "--token" ]] ; then
     export token=$2
     export manager_addr=$3
     restart_swarm
-    sudo systemctl start docker-swarm
+    (sudo systemctl start docker-swarm) || true
 fi
 
 
