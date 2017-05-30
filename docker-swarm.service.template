@@ -1,0 +1,12 @@
+[Unit]
+Description=Join Default Docker Swarm
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=never
+ExecStart=/usr/bin/docker swarm join --token $token $manager_addr
+ExecStop=/usr/bin/docker swarm leave
+
+[Install]
+WantedBy=default.target
