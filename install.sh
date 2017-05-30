@@ -92,13 +92,12 @@ if [[ $1 == "--manager" ]] ; then
 
     export token=$manager_token
     restart_swarm
-    echo "TODO: On reboot, please execute:"
-    echo " ./install.sh --token $manager_token $manager_addr"
 fi
 
 # join docker cluster ?
-
 if [[ $1 == "--token" ]] ; then
+    export token=$2
+    export manager_addr=$3
     restart_swarm
     sudo systemctl start docker-swarm
 fi
