@@ -20,10 +20,9 @@ function usage {
 
 function restart_swarm {
     sudo envsubst < docker-swarmswarm.service.template > /etc/systemd/system/docker-swarm.service
-    sudo systemctl start docker-swarm
 }
 
-if [[ $# != 0 && $# != 1 && $# != 3]] ; then
+if [[ $# != 0 && $# != 1 && $# != 3 ]] ; then
     usage
 fi
 
@@ -86,23 +85,22 @@ if [[ $1 == "--manager" ]] ; then
     export manager_token=`docker swarm join-token -q manager`
 
     echo "# to install another machine and add as a manager, execute"
-    echo "./install --token $manager_token $manager_addr"
+    echo "./install.sh --token $manager_token $manager_addr"
 
     echo "# to install another machine and add as worker, execute"
-    echo "./install --token $worker_token $manager_addr"
+    echo "./install.sh --token $worker_token $manager_addr"
 
     export token=$manager_token
+    restart_swarm
     echo "TODO: On reboot, please execute:"
-    echo " ./install --token $manager_token $manager_addr"
+    echo " ./install.sh --token $manager_token $manager_addr"
 fi
 
 # join docker cluster ?
 
 if [[ $1 == "--token" ]] ; then
-    docker swarm join --token $2  $3
-
-    echo "TODO: On reboot, please execute:"
-    echo " ./install --token $2 $3"
+    restart_swarm
+    sudo systemctl start docker-swarm
 fi
 
 
