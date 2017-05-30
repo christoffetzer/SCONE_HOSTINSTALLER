@@ -19,7 +19,7 @@ function usage {
 }
 
 function restart_swarm {
-    sudo envsubst < docker-swarmswarm.service.template > /etc/systemd/system/docker-swarm.service
+    sudo envsubst < docker-swarm.service.template > /etc/systemd/system/docker-swarm.service
 }
 
 if [[ $# != 0 && $# != 1 && $# != 3 ]] ; then
