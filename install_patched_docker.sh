@@ -7,8 +7,8 @@
 set -e
 
 echo "removing old docker engine - if installed"
-sudo apt-get remove docker-engine || true
-sudo apt-get remove docker-ce || true
+sudo apt-get remove -y docker-engine || true
+sudo apt-get remove -y docker-ce || true
 
 KEYNAME="96B9BADB"
 REPO="deb https://sconecontainers.github.io/APT ./"
