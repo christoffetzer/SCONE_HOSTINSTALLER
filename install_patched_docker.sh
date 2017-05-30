@@ -7,10 +7,10 @@
 set -e
 
 echo "removing old docker engine - if installed"
+(sudo systemctl stop docker-swarm) || true
+/usr/bin/docker swarm leave || true
 sudo apt-get remove -y docker-engine || true
 sudo apt-get remove -y docker-ce || true
-sudo systemctl stop docker-swarm || true
-/usr/bin/docker swarm leave || true
 
 KEYNAME="96B9BADB"
 REPO="deb https://sconecontainers.github.io/APT ./"
