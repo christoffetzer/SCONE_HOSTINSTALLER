@@ -105,6 +105,4 @@ if [[ $1 == "--token" ]] ; then
     (sudo systemctl start docker-swarm) || true
 fi
 
-
-
 echo "OK"
