@@ -1,5 +1,8 @@
 image: ubuntu:16.04
 
+before_script:
+    - apt update && apt install -y sudo
+
 stages:
   - build
   - build-master
@@ -23,7 +26,7 @@ install-master:
 install-worker:
   tags:
     - docker-runner
-  stage: build-master
+  stage: build-worker
   script:
     - ./install.sh --token SWMTKN-1-2f98skv0z2vdhnyw9liwbqtgocts6comdr81o6e3u6kd9olbrc-48zv9ho4f3poid4d34767nucj 192.168.4.101:2377
 
