@@ -4,7 +4,7 @@
 #
 # (C) Christof Fetzer, 2017
 
-set -e
+set -e -x
 
 echo "removing old docker engine - if installed"
 (sudo systemctl stop docker-swarm) || true
@@ -33,9 +33,10 @@ apt-cache policy docker-engine
 
 sudo apt-get install -y docker-engine
 
+curuser=`id -u -n`
 # remove the need for sudo
 sudo groupadd -f docker
-sudo gpasswd -a ${USER} docker
+sudo gpasswd -a ${curuser} docker
 sudo service docker restart
 
 ## do not restart registry in case it is already running
