@@ -1,5 +1,3 @@
-image: ubuntu:16.04
-
 before_script:
     - apt update && apt install -y sudo git  module-init-tools  passwd 
 
