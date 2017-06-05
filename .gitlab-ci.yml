@@ -1,5 +1,5 @@
 before_script:
-    - apt update && apt install -y sudo git  module-init-tools  passwd 
+    - sudo apt update && apt install -y sudo git  module-init-tools  passwd 
 
 stages:
   - build
