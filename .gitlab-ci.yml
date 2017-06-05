@@ -14,7 +14,7 @@ install:
     - ./install.sh
   allow_failure: true
 
-install-master:
+install-manager:
   tags:
     - virtualbox-runner
   stage: build-manager
