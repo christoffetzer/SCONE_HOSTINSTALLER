@@ -2,27 +2,31 @@ before_script:
     - sudo apt update &&  sudo apt install -y module-init-tools  passwd 
 
 stages:
-  - build
+  - build-first
+  - build-manager
+  - build-worker
 
 install:
   tags:
     - virtualbox-runner
-  stage: build
+  stage: build-first
   script:
     - ./install.sh
+  allow_failure: true
 
 install-master:
   tags:
     - virtualbox-runner
-  stage: build
+  stage: build-manager
   script:
     - ./install.sh --manager
+  allow_failure: true
 
 
 install-worker:
   tags:
     - virtualbox-runner
-  stage: build
+  stage: build-worker
   script:
     - ./install.sh --token SWMTKN-1-2f98skv0z2vdhnyw9liwbqtgocts6comdr81o6e3u6kd9olbrc-48zv9ho4f3poid4d34767nucj 192.168.4.101:2377
-
+  allow_failure: true

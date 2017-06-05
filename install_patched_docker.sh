@@ -7,7 +7,8 @@
 set -e -x
 
 echo "removing old docker engine - if installed"
-(sudo systemctl stop docker-swarm) || true
+(sudo systemctl stop docker) || true
+(sudo service docker stop) || true
 sudo apt-get remove -y docker-engine || true
 sudo apt-get remove -y docker-ce || true
 
