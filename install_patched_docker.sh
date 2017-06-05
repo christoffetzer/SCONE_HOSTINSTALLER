@@ -40,7 +40,7 @@ sudo groupadd -f docker
 sudo gpasswd -a ${curuser} docker
 
 # ensure that this takes effect immediately
-su - ${curuser}
+newgrp - 
 
 sudo service docker start
 
