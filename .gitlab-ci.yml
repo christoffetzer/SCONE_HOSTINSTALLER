@@ -18,7 +18,7 @@ install-master:
     - virtualbox-runner
   stage: build-master
   script:
-    - ./install.sh --master
+    - ./install.sh --manager
 
 
 install-worker:
