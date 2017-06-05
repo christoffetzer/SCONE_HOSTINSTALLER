@@ -12,7 +12,6 @@ install:
   stage: build-first
   script:
     - ./install.sh
-  allow_failure: true
 
 install-manager:
   tags:

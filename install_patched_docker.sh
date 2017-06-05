@@ -38,6 +38,10 @@ curuser=`id -u -n`
 # remove the need for sudo
 sudo groupadd -f docker
 sudo gpasswd -a ${curuser} docker
+
+# ensure that this takes effect immediately
+su - ${curuser}
+
 sudo service docker start
 
 ## do not restart registry in case it is already running
