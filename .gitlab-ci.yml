@@ -10,14 +10,14 @@ stages:
 
 install:
   tags:
-    - shell-runner
+    - virtualbox-runner
   stage: build
   script:
     - ./install.sh
 
 install-master:
   tags:
-    - shell-runner
+    - virtualbox-runner
   stage: build-master
   script:
     - ./install.sh --master
@@ -25,7 +25,7 @@ install-master:
 
 install-worker:
   tags:
-    - shell-runner
+    - virtualbox-runner
   stage: build-worker
   script:
     - ./install.sh --token SWMTKN-1-2f98skv0z2vdhnyw9liwbqtgocts6comdr81o6e3u6kd9olbrc-48zv9ho4f3poid4d34767nucj 192.168.4.101:2377
