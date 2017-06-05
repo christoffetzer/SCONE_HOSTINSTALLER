@@ -1,5 +1,5 @@
 before_script:
-    - sudo apt update && apt sudo install -y module-init-tools  passwd 
+    - sudo apt update &&  sudo apt install -y module-init-tools  passwd 
 
 stages:
   - build
