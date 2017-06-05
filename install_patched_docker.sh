@@ -40,9 +40,11 @@ sudo groupadd -f docker
 sudo gpasswd -a ${curuser} docker
 
 # ensure that this takes effect immediately
-newgrp - 
+newgrp docker 
 
-sudo service docker start
+sudo service docker stop || true
+
+sudo service docker start || true
 
 ## do not restart registry in case it is already running
 #r=`sudo docker ps --filter "name=^/registry$" | wc -l`
