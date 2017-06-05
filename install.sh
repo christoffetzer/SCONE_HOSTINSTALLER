@@ -6,7 +6,7 @@
 #
 # (C) Christof Fetzer, 2017
 
-set -e
+set -e -x
 
 function usage {
     echo "Usage: $0 [--token <TOKEN> <Docker Manager Address>]"
