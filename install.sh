@@ -80,7 +80,7 @@ fi
 if [[ $1 == "--manager" ]] ; then
     export PORT=2377
     export MANAGER_IP=`hostname --ip-address`
-    docker swarm init --advertise-addr $MANAGER_IP:$PORT --listen-addr 0.0.0.0:$PORT
+    sudo docker swarm init --advertise-addr $MANAGER_IP:$PORT --listen-addr 0.0.0.0:$PORT
 
     export manager_addr=`docker info --format '{{(index .Swarm.RemoteManagers 0).Addr}}'`
 
