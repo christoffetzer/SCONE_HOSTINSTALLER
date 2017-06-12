@@ -1,0 +1,3 @@
+[submodule "SENTRY_C"]
+	path = SENTRY_C
+	url = ../../../utilities/SENTRY_C
