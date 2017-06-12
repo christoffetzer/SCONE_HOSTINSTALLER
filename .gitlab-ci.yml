@@ -1,5 +1,10 @@
+image: ubuntu:16.04
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
 before_script:
-    - sudo apt update &&  sudo apt install -y module-init-tools  passwd 
+    - sudo apt update &&  sudo apt install -y module-init-tools  passwd git
 
 stages:
   - build-first

@@ -8,6 +8,12 @@
 
 set -e -x
 
+source "$(dirname "$0")/SENTRY_C/sentry.sh"
+
+set_key_secret_projectid 923b070ee0134ca5b682758331d75796 e34ec520f7ba4b65851a23d47f43a33a 3
+
+on_error_exit "SCONE_HOSTINSTALLER: unexpected error exit"
+
 function usage {
     echo "Usage: $0 [--token <TOKEN> <Docker Manager Address>]"
     echo "          [--manager]"
@@ -15,7 +21,8 @@ function usage {
     echo "   Removes existing docker engine and installs patched docker engines."
     echo "   Joins docker swarm in case a manager addr and a token is given."
     echo "   Create a new Swarm manager if --manage is given"
-    exit -1
+
+    error_exit "install.sh: wrong usage" $LINENO
 }
 
 function restart_swarm {
@@ -63,7 +70,7 @@ if [ !  $m "==" "1" ] ; then
     m=`lsmod | grep isgx | wc -l`
     if [ ! $m "==" "1" ] ; then
             echo "Error: sgx driver not loaded"
-            exit -1
+            error_exit "Error: sgx driver not loaded" $LINENO
     fi
 
     cd ..
