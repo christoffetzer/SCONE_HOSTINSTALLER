@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# - install sgx driver - unless already installed
+# - install patched sgx driver - this driver exports some statistics counters
 # - install docker engine - unless already installed
 # - install git-lfs - unless already installed
 #
@@ -53,7 +53,7 @@ sudo apt install -y gcc
 m=`lsmod | grep isgx | wc -l`
 if [ !  $m "==" "1" ] ; then
     rm -rf linux-sgx-driver
-    git clone https://github.com/01org/linux-sgx-driver
+    git clone https://github.com/christoffetzer/linux-sgx-driver
 
     cd linux-sgx-driver/
     make
