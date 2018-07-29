@@ -26,7 +26,7 @@ Copyright (C) 2017-2018 scontain.com
 set -x -e
 
 docker -v || install_docker=true
-if [[ $install_driver == true ]] ; then
+if [[ $install_docker == true ]] ; then
   sudo apt-get install --yes apt-transport-https  ca-certificates  curl  software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   sudo add-apt-repository  "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
